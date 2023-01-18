@@ -1,5 +1,6 @@
 package com.wandersonalves.workshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,12 @@ public class PostService {
 	// metodo alternativo // Query manual
 	public List<Post> findByTitle(String text){
 		return repo.findByTitle(text);
+	}
+	
+	public List<Post> search(String text, Date minDate, Date maxDate){
+		// Add mais um dia ao maxDate pois um instante pode ocorrer até o final do dia.
+		maxDate = new Date(maxDate.getTime() + 24 *60 *60 * 1000);
+		return repo.search(text, minDate, maxDate);
 	}
 
 }
